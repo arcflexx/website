@@ -30,9 +30,9 @@ export default function Hero() {
       <div className="relative h-full flex flex-col items-center justify-center">
         <div className="text-center space-y-6">
           {/* Main Heading */}
-          <h1 className="text-7xl md:text-8xl font-bold text-white tracking-wider">
+          {/* <h1 className="text-7xl md:text-8xl font-bold text-white tracking-wider">
             ARCFLEX
-          </h1>
+          </h1> */}
 
           {/* Tagline */}
           <p className="text-lg md:text-2xl text-white/90 font-light tracking-wide max-w-2xl mx-auto">
@@ -40,11 +40,11 @@ export default function Hero() {
           </p>
 
           {/* CTA Button */}
-          <div className="pt-8">
+          {/* <div className="pt-8">
             <button className="px-10 py-3 bg-white text-black font-semibold text-sm tracking-widest hover:bg-white/90 transition-all duration-300 hover:scale-105">
               EXPLORE COLLECTION
             </button>
-          </div>
+          </div> */}
         </div>
       </div>
 

@@ -33,7 +33,7 @@ export default function Navbar() {
       }`}
     >
       {/* Transparent background */}
-      <div className="bg-transparent backdrop-blur-sm">
+      <div className="bg-transparent">
         <div className="max-w-7xl mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             {/* Left Navigation */}
