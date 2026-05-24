@@ -1,7 +1,14 @@
 'use client';
 
-export default function Hero() {
-  const videoSource = process.env.NEXT_PUBLIC_HERO_VIDEO_URL;
+import type { HomeContent } from '@/lib/cds';
+import Image from 'next/image';
+
+interface HeroProps {
+  hero: HomeContent['hero'];
+}
+
+export default function Hero({ hero }: HeroProps) {
+  const videoSource = hero.videoUrl;
 
   return (
     <section className="relative w-full h-screen overflow-hidden">
@@ -20,31 +27,19 @@ export default function Hero() {
         </video>
       ) : (
         /* Fallback Gradient */
-        <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900 to-black" />
+        // <div className="absolute inset-0 bg-gradient-to-b from-black via-gray-900 to-black" />
+        <Image src="/front_image.jpeg" alt="Hero Image" fill className="object-cover" />
       )}
 
       {/* Overlay for better text readability */}
       <div className="absolute inset-0 bg-black/30" />
 
       {/* Content */}
-      <div className="relative h-full flex flex-col items-center justify-center">
-        <div className="text-center space-y-6">
-          {/* Main Heading */}
-          {/* <h1 className="text-7xl md:text-8xl font-bold text-white tracking-wider">
-            ARCFLEX
-          </h1> */}
-
-          {/* Tagline */}
-          <p className="text-lg md:text-2xl text-white/90 font-light tracking-wide max-w-2xl mx-auto">
-            Premium Athletic Performance Wear
+      <div className="relative h-full">
+        <div className="absolute inset-x-0 bottom-20 flex flex-col items-center text-center px-6">
+          <p className="text-lg md:text-2xl text-white/90 font-light tracking-wide max-w-2xl mx-auto leading-relaxed">
+            {hero.heading}
           </p>
-
-          {/* CTA Button */}
-          {/* <div className="pt-8">
-            <button className="px-10 py-3 bg-white text-black font-semibold text-sm tracking-widest hover:bg-white/90 transition-all duration-300 hover:scale-105">
-              EXPLORE COLLECTION
-            </button>
-          </div> */}
         </div>
       </div>
 

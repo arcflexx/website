@@ -1,10 +1,10 @@
 # Arcflex Athletics - E-Commerce Platform
 
-A modern, high-performance e-commerce platform for Arcflex Athletics built with Next.js 14, featuring a sleek black and white design with Shopify integration.
+A modern, high-performance e-commerce platform for Arcflex Athletics built with Next.js, featuring a sleek black and white design with a backend-agnostic commerce layer.
 
 ## 🎯 Overview
 
-Arcflex Athletics is a premium athletic wear e-commerce platform designed with a minimalist, modern aesthetic. The application features a smooth, responsive user experience with seamless Shopify integration for product management and checkout.
+Arcflex Athletics is a premium athletic wear e-commerce platform designed with a minimalist, modern aesthetic. The application uses a backend-agnostic commerce layer for shopping and a CDS layer for marketing content/media so the site can run against local or AWS/CDN-backed providers.
 
 ## 🛠 Tech Stack
 
@@ -12,7 +12,8 @@ Arcflex Athletics is a premium athletic wear e-commerce platform designed with a
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **Font**: Inter (via Google Fonts)
-- **E-Commerce**: Shopify Storefront API
+- **E-Commerce**: Backend-agnostic commerce layer (Shopify + test backend)
+- **Content**: CDS layer with local and AWS/CDN-backed providers
 - **Runtime**: Node.js
 - **Deployment**: Vercel (recommended)
 
@@ -36,8 +37,10 @@ arcflex-athletics/
 │   ├── page.tsx                # Home page
 │   └── globals.css             # Global styles
 ├── lib/
-│   ├── shopify.ts              # Shopify Storefront API client
-│   └── types.ts                # TypeScript interfaces
+│   ├── cds/                    # Marketing content/media providers
+│   ├── ecommerce/              # Backend-agnostic commerce layer
+│   ├── shopify.ts              # Compatibility re-export for commerce helpers
+│   └── types.ts                # Shared ecommerce interfaces
 ├── .env.example                # Environment variables template
 ├── tailwind.config.ts          # Tailwind configuration
 ├── tsconfig.json               # TypeScript configuration
@@ -51,7 +54,7 @@ arcflex-athletics/
 
 - Node.js 18.17 or later
 - npm or yarn package manager
-- Shopify store with Storefront API access
+- Shopify store with Storefront API access if you use the Shopify backend
 
 ### Installation
 
@@ -70,9 +73,18 @@ arcflex-athletics/
    ```bash
    cp .env.example .env.local
    ```
-   
-   Then edit `.env.local` with your Shopify credentials:
+    
+   Then edit `.env.local` for the backend you want to use. For local development without Shopify, keep the test backend and local CDS:
    ```env
+   ECOMMERCE_BACKEND=test
+   CDS_PROVIDER=local
+   ```
+
+   To use Shopify, switch to:
+   ```env
+   ECOMMERCE_BACKEND=shopify
+   CDS_PROVIDER=aws
+   CDS_ASSET_BASE_URL=https://your-cloudfront-domain.cloudfront.net
    NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN=your-store.myshopify.com
    NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN=your_access_token
    ```
@@ -123,9 +135,14 @@ npm start
 
 5. **Add to .env.local**
    ```env
+   ECOMMERCE_BACKEND=shopify
    NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN=your-store.myshopify.com
    NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN=your_token_here
    ```
+
+## 🧪 Test Backend
+
+The test backend is in-memory and uses fixture products, collections, and carts. Set `ECOMMERCE_BACKEND=test` to use it without Shopify credentials.
 
 ## 📱 Features
 
@@ -138,7 +155,7 @@ npm start
 - **Account link** for user authentication
 
 ### Hero Section
-- **Full-screen video background** (configurable via environment variable)
+- **Full-screen video background** (configurable via CDS content)
 - **Fallback gradient** if video is not available
 - **Responsive typography** with tagline
 - **Call-to-action button**
@@ -152,16 +169,20 @@ npm start
 - **About Us**: Company information and values
 - **Account**: User login and account management
 
-### Shopify Integration
+### Commerce Integration
 - Fetch products and collections
 - Create shopping carts
 - Add items to cart
 - Full GraphQL API integration
 - Error handling and validation
 
+### CDS Integration
+- Serve home, about, and gallery content from the CDS layer
+- Resolve image/video URLs through a local or AWS/CDN-backed provider
+
 ## 📦 API Functions
 
-All Shopify functions are located in `lib/shopify.ts`:
+Commerce helpers are exported from `lib/ecommerce/index.ts` and re-exported by `lib/shopify.ts` for compatibility. CDS helpers live in `lib/cds/index.ts`:
 
 ### `getProducts(first: number = 10)`
 Fetch all products from the store.
@@ -206,9 +227,12 @@ Full TypeScript support with strict type checking. Configuration in `tsconfig.js
 
 ### Environment Variables
 See `.env.example` for all available environment variables:
+- `ECOMMERCE_BACKEND` - `shopify` or `test`
+- `CDS_PROVIDER` - `local` or `aws`
+- `CDS_ASSET_BASE_URL` - CloudFront/CDN base URL when `CDS_PROVIDER=aws`
+- `CDS_HERO_VIDEO_URL` - Optional hero video fallback for local CDS
 - `NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN` - Your Shopify store domain
 - `NEXT_PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN` - Storefront API access token
-- `NEXT_PUBLIC_HERO_VIDEO_URL` - (Optional) Hero section video URL
 
 ## 📚 Key Dependencies
 

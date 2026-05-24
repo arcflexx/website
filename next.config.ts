@@ -1,10 +1,23 @@
 import type { NextConfig } from "next";
 
+const cdsAssetBaseUrl = process.env.CDS_ASSET_BASE_URL;
+const cdsRemotePattern =
+  cdsAssetBaseUrl && (() => {
+    const url = new URL(cdsAssetBaseUrl);
+    url.pathname = "/**";
+    return url;
+  })();
+
 const nextConfig: NextConfig = {
-  /* config options here */
-  // image configuration for external image domains
   images: {
-    domains: ["cdn-optimized.imweb.me"],
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "cdn-optimized.imweb.me",
+        pathname: "/**",
+      },
+      ...(cdsRemotePattern ? [cdsRemotePattern] : []),
+    ],
   },
 };
 
