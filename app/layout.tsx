@@ -3,13 +3,17 @@ import "./globals.css";
 import Navbar from "./components/Navbar";
 
 export const metadata: Metadata = {
-  title: "Arcflex Athletics - Premium Athletic Performance Wear",
-  description: "Premium athletic performance wear designed for excellence. Explore our collection of high-quality activewear and athletic apparel.",
-  keywords: "athletic wear, activewear, performance wear, sports apparel, gym wear",
+  title: {
+    default: 'Arcflex Athletics',
+    template: '%s | Arcflex Athletics',
+  },
+  description:
+    'Premium athletic performance wear designed for excellence. Explore our collection of high-quality activewear and athletic apparel.',
+  keywords: ['athletic wear', 'activewear', 'performance wear', 'sports apparel', 'gym wear'],
   openGraph: {
-    title: "Arcflex Athletics",
-    description: "Premium Athletic Performance Wear",
-    type: "website",
+    title: 'Arcflex Athletics',
+    description: 'Premium Athletic Performance Wear',
+    type: 'website',
   },
 };
 

@@ -3,10 +3,8 @@ import type { AboutContent, ContentAssetRef, GalleryContent, HomeContent, Resolv
 type AssetResolver = (asset: ContentAssetRef) => string | null;
 
 const heroVideo: ContentAssetRef = {
-  // key: 'marketing/home/hero.mp4',
-  // fallbackUrl:
-  //   process.env.CDS_HERO_VIDEO_URL ??
-  //   'https://www.w3schools.com/html/mov_bbb.mp4',
+  key: 'marketing/home/hero.mp4',
+  fallbackUrl: process.env.CDS_HERO_VIDEO_URL ?? 'https://www.w3schools.com/html/mov_bbb.mp4',
 };
 
 const featuredCardAssets = [

@@ -1,6 +1,28 @@
 import Hero from './components/Hero';
 import Image from 'next/image';
+import Link from 'next/link';
 import { getSiteContent } from '@/lib/cds';
+
+const categoryTiles = [
+  {
+    title: 'Men',
+    href: '/shop/men',
+    image: 'https://cdn-optimized.imweb.me/thumbnail/20250122/a6978eaf20abb.jpg?w=1200',
+    alt: 'Men training apparel',
+  },
+  {
+    title: 'Women',
+    href: '/shop/women',
+    image: 'https://cdn-optimized.imweb.me/thumbnail/20250122/a6978eaf20abb.jpg?w=1200',
+    alt: 'Women training apparel',
+  },
+  {
+    title: 'Accessories',
+    href: '/shop/accessories',
+    image: 'https://cdn-optimized.imweb.me/thumbnail/20250122/a6978eaf20abb.jpg?w=1200',
+    alt: 'Athletic accessories',
+  },
+];
 
 export default async function Home() {
   const content = await getSiteContent();
@@ -10,47 +32,40 @@ export default async function Home() {
       {/* Hero Section */}
       <Hero hero={content.home.hero} />
 
-      {/* Featured Section */}
-      <section className="w-full bg-white py-28 px-6 md:px-10 lg:px-14 my-1">
-        <div className="w-full">
-          <div className="text-center space-y-8 mb-20 max-w-3xl mx-auto">
-            <h2 className="text-5xl md:text-6xl font-bold text-black">
-              {content.home.featuredSection.heading}
-            </h2>
-            <p className="text-lg md:text-xl text-black/70 font-light mx-auto leading-relaxed">
-              {content.home.featuredSection.description}
+      <section className="w-full bg-white px-5 py-20 sm:px-8 md:py-24 lg:px-12 xl:px-16">
+        <div className="mx-auto w-full max-w-7xl">
+          <div className="mb-10 flex flex-col gap-3 md:mb-12 md:flex-row md:items-end md:justify-between">
+            <h2 className="text-4xl font-bold text-black md:text-5xl">Shop by Category</h2>
+            <p className="max-w-xl text-base font-light leading-relaxed text-black/60 md:text-lg">
+              Choose the collection that fits your training day.
             </p>
           </div>
 
-          {/* Featured Products Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-8 md:gap-10">
-            {content.home.featuredSection.cards.map((card) => (
-              <div key={card.id} className="group cursor-pointer">
-                <div className="bg-gray-100 aspect-square mb-6 flex items-center justify-center overflow-hidden">
-                  <div className="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                    <Image
-                      src={card.image.url}
-                      alt={card.image.altText}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      width={800}
-                      height={800}
-                    />
-                  </div>
+          <div className="mx-auto flex justify-center">
+            <div className="grid grid-cols-1 gap-3 md:grid-cols-3 w-full">
+              {categoryTiles.map((category) => (
+              <Link
+                key={category.href}
+                href={category.href}
+                className="group relative flex min-h-[420px] overflow-hidden bg-gray-100 md:min-h-[520px]"
+              >
+                <Image
+                  src={category.image}
+                  alt={category.alt}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/10 to-transparent" />
+                <div className="relative mt-auto w-full p-7 text-white md:p-8">
+                  <h3 className="text-4xl font-bold md:text-5xl">{category.title}</h3>
+                  <span className="mt-5 inline-flex border border-white/70 px-5 py-3 text-xs font-semibold uppercase tracking-[0.22em] transition-colors group-hover:bg-white group-hover:text-black">
+                    Shop Now
+                  </span>
                 </div>
-                <h3 className="text-lg font-semibold mb-3 text-center">{card.title}</h3>
-                <p className="text-black/60 text-sm mb-4 font-light leading-relaxed text-center">
-                  {card.description}
-                </p>
-                <p className="font-semibold">{card.priceLabel}</p>
-              </div>
+              </Link>
             ))}
-          </div>
-
-          {/* CTA Button */}
-          <div className="text-center mt-20">
-            <button className="px-12 py-3 bg-black text-white font-semibold text-sm tracking-widest hover:bg-black/90 transition-all duration-300">
-              VIEW ALL PRODUCTS
-            </button>
+            </div>
           </div>
         </div>
       </section>

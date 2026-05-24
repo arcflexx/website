@@ -1,17 +1,17 @@
 # Arcflex Athletics - E-Commerce Platform
 
-A modern, high-performance e-commerce platform for Arcflex Athletics built with Next.js, featuring a sleek black and white design with a backend-agnostic commerce layer.
+A modern e-commerce storefront for Arcflex Athletics built with Next.js App Router, featuring a minimalist black and white design, a backend-agnostic commerce layer, and CDS-backed marketing content.
 
 ## 🎯 Overview
 
-Arcflex Athletics is a premium athletic wear e-commerce platform designed with a minimalist, modern aesthetic. The application uses a backend-agnostic commerce layer for shopping and a CDS layer for marketing content/media so the site can run against local or AWS/CDN-backed providers.
+Arcflex Athletics is a premium athletic wear storefront designed with a minimalist, modern aesthetic. The application uses a backend-agnostic commerce layer for shopping and a CDS layer for marketing content and media so the site can run against local or AWS/CDN-backed providers.
 
 ## 🛠 Tech Stack
 
-- **Framework**: Next.js 14 with App Router
+- **Framework**: Next.js 16.2.6 with App Router
 - **Language**: TypeScript
-- **Styling**: Tailwind CSS
-- **Font**: Inter (via Google Fonts)
+- **Styling**: Tailwind CSS 4
+- **Font**: Default sans stack
 - **E-Commerce**: Backend-agnostic commerce layer (Shopify + test backend)
 - **Content**: CDS layer with local and AWS/CDN-backed providers
 - **Runtime**: Node.js
@@ -23,10 +23,13 @@ Arcflex Athletics is a premium athletic wear e-commerce platform designed with a
 arcflex-athletics/
 ├── app/
 │   ├── components/
-│   │   ├── Navbar.tsx          # Main navigation component with scroll hide effect
-│   │   └── Hero.tsx            # Full-screen hero section with video background
+│   │   ├── Navbar.tsx          # Main navigation component with scroll behavior
+│   │   ├── Hero.tsx            # Full-screen hero section with video background
+│   │   ├── PageShell.tsx       # Shared page wrapper for route headers and spacing
+│   │   └── PlaceholderProductGrid.tsx # Shared placeholder grid for shop routes
 │   ├── shop/
 │   │   ├── page.tsx            # Shop main page
+│   │   ├── placeholderProducts.ts # Shared placeholder product factory
 │   │   ├── men/page.tsx        # Men's collection
 │   │   ├── women/page.tsx      # Women's collection
 │   │   └── accessories/page.tsx # Accessories collection
@@ -41,8 +44,6 @@ arcflex-athletics/
 │   ├── ecommerce/              # Backend-agnostic commerce layer
 │   ├── shopify.ts              # Compatibility re-export for commerce helpers
 │   └── types.ts                # Shared ecommerce interfaces
-├── .env.example                # Environment variables template
-├── tailwind.config.ts          # Tailwind configuration
 ├── tsconfig.json               # TypeScript configuration
 ├── next.config.ts              # Next.js configuration
 └── package.json                # Dependencies
@@ -70,11 +71,8 @@ arcflex-athletics/
    ```
 
 3. **Set up environment variables**
-   ```bash
-   cp .env.example .env.local
-   ```
-    
-   Then edit `.env.local` for the backend you want to use. For local development without Shopify, keep the test backend and local CDS:
+
+   Create `.env.local` and set the backend you want to use. For local development without Shopify, keep the test backend and local CDS:
    ```env
    ECOMMERCE_BACKEND=test
    CDS_PROVIDER=local
@@ -169,6 +167,11 @@ The test backend is in-memory and uses fixture products, collections, and carts.
 - **About Us**: Company information and values
 - **Account**: User login and account management
 
+### Shared UI
+- **Page shell**: Reusable route wrapper for headings, width, and spacing
+- **Placeholder product grid**: Shared shop grid for category placeholders
+- **Navbar**: Scroll-aware navigation with shared dropdown data
+
 ### Commerce Integration
 - Fetch products and collections
 - Create shopping carts
@@ -207,7 +210,7 @@ Add an item to an existing checkout.
 - **Accent**: Gray shades for borders and backgrounds
 
 ### Typography
-- **Font Family**: Inter (from Google Fonts)
+- **Font Family**: Default sans stack
 - **Headings**: Font weight 700 (bold)
 - **Body Text**: Font weight 300-400 (light to regular)
 - **Letter Spacing**: Subtle letter-spacing for elegant feel
@@ -220,7 +223,7 @@ Add an item to an existing checkout.
 ## 🔧 Configuration
 
 ### Tailwind CSS
-The project uses Tailwind CSS for styling. Configuration is in `tailwind.config.ts`.
+The project uses Tailwind CSS 4 for styling.
 
 ### TypeScript
 Full TypeScript support with strict type checking. Configuration in `tsconfig.json`.
@@ -238,12 +241,12 @@ See `.env.example` for all available environment variables:
 
 ```json
 {
-  "next": "^15.0.0",
-  "react": "^19.0.0",
-  "react-dom": "^19.0.0",
-  "typescript": "^5.3.0",
-  "tailwindcss": "^4.0.0",
-  "postcss": "^8.4.0"
+   "next": "16.2.6",
+   "react": "19.2.4",
+   "react-dom": "19.2.4",
+   "typescript": "^5",
+   "tailwindcss": "^4",
+   "postcss": "^8.4.0"
 }
 ```
 
