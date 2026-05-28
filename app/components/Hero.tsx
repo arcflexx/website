@@ -1,19 +1,13 @@
 'use client';
 
-import type { HomeContent } from '@/lib/cds';
 import Image from 'next/image';
 
-interface HeroProps {
-  hero: HomeContent['hero'];
-}
-
-export default function Hero({ hero }: HeroProps) {
-  const videoSource = hero.videoUrl;
+export default function Hero({ videoURL }: { videoURL?: string }) {
 
   return (
     <section className="relative w-full h-screen overflow-hidden">
       {/* Video Background */}
-      {videoSource ? (
+      {videoURL ? (
         <video
           className="absolute top-0 left-0 w-full h-full object-cover"
           autoPlay
@@ -21,7 +15,7 @@ export default function Hero({ hero }: HeroProps) {
           loop
           playsInline
         >
-          <source src={videoSource} type="video/mp4" />
+          <source src={videoURL} type="video/mp4" />
           {/* Fallback gradient if video doesn't load */}
           <div className="absolute inset-0 bg-gradient-to-b from-black to-gray-900" />
         </video>
@@ -34,14 +28,14 @@ export default function Hero({ hero }: HeroProps) {
       {/* Overlay for better text readability */}
       <div className="absolute inset-0 bg-black/30" />
 
-      {/* Content */}
-      <div className="relative h-full">
+      {/* Little Headline */}
+      {/* <div className="relative h-full">
         <div className="absolute inset-x-0 bottom-20 flex flex-col items-center text-center px-6">
           <p className="text-lg md:text-2xl text-white/90 font-light tracking-wide max-w-2xl mx-auto leading-relaxed">
-            {hero.heading}
+            {}
           </p>
         </div>
-      </div>
+      </div> */}
 
       {/* Scroll indicator */}
       <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white/60 animate-bounce">

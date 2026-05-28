@@ -1,33 +1,25 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import Navbar from "./components/Navbar";
+import localFont from 'next/font/local';
+
+export const texheros = localFont({
+  src: '../public/fonts/font.otf',
+  variable: '--font-texheros',
+});
 
 export const metadata: Metadata = {
-  title: {
-    default: 'Arcflex Athletics',
-    template: '%s | Arcflex Athletics',
-  },
-  description:
-    'Premium athletic performance wear designed for excellence. Explore our collection of high-quality activewear and athletic apparel.',
-  keywords: ['athletic wear', 'activewear', 'performance wear', 'sports apparel', 'gym wear'],
-  openGraph: {
-    title: 'Arcflex Athletics',
-    description: 'Premium Athletic Performance Wear',
-    type: 'website',
-  },
+  title: "Arcflex",
+  description: "A premium athletic wear brand."
 };
 
 export default function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased" data-scroll-behavior="smooth">
-      <body className="min-h-full flex flex-col bg-white text-black font-sans">
-        <Navbar />
-        {children}
-      </body>
+    <html lang="en">
+      <body className={texheros.variable}>{children}</body>
     </html>
   );
 }

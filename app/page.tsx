@@ -1,74 +1,165 @@
-import Hero from './components/Hero';
-import Image from 'next/image';
-import Link from 'next/link';
-import { getSiteContent } from '@/lib/cds';
+import { ArrowRight, PackageSearch, ShoppingCart, SlidersHorizontal, Star } from "lucide-react";
+import Link from "next/link";
+import { getCategories, listProducts } from "@/lib/products";
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
 
-const categoryTiles = [
-  {
-    title: 'Men',
-    href: '/shop/men',
-    image: 'https://cdn-optimized.imweb.me/thumbnail/20250122/a6978eaf20abb.jpg?w=1200',
-    alt: 'Men training apparel',
-  },
-  {
-    title: 'Women',
-    href: '/shop/women',
-    image: 'https://cdn-optimized.imweb.me/thumbnail/20250122/a6978eaf20abb.jpg?w=1200',
-    alt: 'Women training apparel',
-  },
-  {
-    title: 'Accessories',
-    href: '/shop/accessories',
-    image: 'https://cdn-optimized.imweb.me/thumbnail/20250122/a6978eaf20abb.jpg?w=1200',
-    alt: 'Athletic accessories',
-  },
-];
-
-export default async function Home() {
-  const content = await getSiteContent();
+export default function Home() {
+  const products = listProducts();
+  const featuredProducts = listProducts({ featured: true });
+  const categories = getCategories();
 
   return (
-    <main className="w-full">
-      {/* Hero Section */}
-      <Hero hero={content.home.hero} />
+    <main className="min-h-screen bg-[#f7f6f2] text-stone-950">
+      {/* <header className="border-b border-stone-200 bg-white/80 px-5 py-4 backdrop-blur sm:px-8 lg:px-12">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between">
+          <Link href="/" className="text-lg font-semibold tracking-normal">
+            Arcflex Commerce
+          </Link>
+          <div className="flex items-center gap-2">
+            <Link
+              href="/api/products"
+              className="hidden rounded-md border border-stone-300 px-3 py-2 text-sm font-medium text-stone-700 hover:border-stone-500 sm:inline-flex"
+            >
+              API
+            </Link>
+            <button
+              type="button"
+              className="inline-flex size-10 items-center justify-center rounded-md bg-stone-950 text-white hover:bg-stone-800"
+              aria-label="Cart"
+            >
+              <ShoppingCart aria-hidden="true" size={19} />
+            </button>
+          </div>
+        </nav>
+      </header> */}
+      <Navbar />
+      <Hero videoURL="" />
 
-      <section className="w-full bg-white px-5 py-20 sm:px-8 md:py-24 lg:px-12 xl:px-16">
-        <div className="mx-auto w-full max-w-7xl">
-          <div className="mb-10 flex flex-col gap-3 md:mb-12 md:flex-row md:items-end md:justify-between">
-            <h2 className="text-4xl font-bold text-black md:text-5xl">Shop by Category</h2>
-            <p className="max-w-xl text-base font-light leading-relaxed text-black/60 md:text-lg">
-              Choose the collection that fits your training day.
-            </p>
+      <section className="px-5 py-10 sm:px-8 lg:px-12">
+        <div className="mx-auto grid max-w-7xl gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+          <div>
+            <h1 className="max-w-3xl text-5xl font-semibold tracking-normal sm:text-6xl">
+              Cleaned ARCFLEX Storefront.
+            </h1>
           </div>
 
-          <div className="mx-auto flex justify-center">
-            <div className="grid grid-cols-1 gap-3 md:grid-cols-3 w-full">
-              {categoryTiles.map((category) => (
-              <Link
-                key={category.href}
-                href={category.href}
-                className="group relative flex min-h-[420px] overflow-hidden bg-gray-100 md:min-h-[520px]"
-              >
-                <Image
-                  src={category.image}
-                  alt={category.alt}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 33vw"
-                  className="object-cover transition-transform duration-500 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/10 to-transparent" />
-                <div className="relative mt-auto w-full p-7 text-white md:p-8">
-                  <h3 className="text-4xl font-bold md:text-5xl">{category.title}</h3>
-                  <span className="mt-5 inline-flex border border-white/70 px-5 py-3 text-xs font-semibold uppercase tracking-[0.22em] transition-colors group-hover:bg-white group-hover:text-black">
-                    Shop Now
-                  </span>
-                </div>
-              </Link>
-            ))}
+          <div className="grid gap-3 rounded-lg border border-stone-200 bg-white p-4 shadow-sm">
+            <div className="flex items-center gap-2 text-sm font-semibold">
+              <SlidersHorizontal aria-hidden="true" size={16} />
+              Raw API Routes
             </div>
+            <ApiLink href="/api/products" label="GET /api/products" />
+            <ApiLink href="/api/products?featured=true" label="GET /api/products?featured=true" />
+            <ApiLink href="/api/products?category=bags" label="GET /api/products?category=bags" />
+            <ApiLink href="/api/products/aero-daypack" label="GET /api/products/aero-daypack" />
           </div>
         </div>
       </section>
+
+      {/* <section className="px-5 pb-6 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-4 flex flex-wrap gap-2">
+            {categories.map((category) => (
+              <Link
+                key={category}
+                href={`/api/products?category=${category}`}
+                className="rounded-md border border-stone-300 bg-white px-3 py-2 text-sm font-medium capitalize text-stone-700 hover:border-stone-500"
+              >
+                {category}
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-5 pb-14 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-5 flex items-center justify-between gap-4">
+            <h2 className="text-2xl font-semibold">Featured</h2>
+            <Link href="/api/products?featured=true" className="text-sm font-medium text-stone-600 hover:text-stone-950">
+              View JSON
+            </Link>
+          </div>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {featuredProducts.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section className="border-t border-stone-200 bg-white px-5 py-12 sm:px-8 lg:px-12">
+        <div className="mx-auto max-w-7xl">
+          <h2 className="mb-5 text-2xl font-semibold">All products</h2>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+            {products.map((product) => (
+              <ProductCard key={product.id} product={product} />
+            ))}
+          </div>
+        </div>
+      </section> */}
     </main>
+  );
+}
+
+type ApiLinkProps = {
+  href: string;
+  label: string;
+};
+
+function ApiLink({ href, label }: ApiLinkProps) {
+  return (
+    <Link
+      href={href}
+      className="flex items-center justify-between gap-3 rounded-md bg-stone-100 px-3 py-2 font-mono text-sm text-stone-700 hover:bg-stone-200"
+    >
+      <span className="truncate">{label}</span>
+      <ArrowRight aria-hidden="true" size={15} />
+    </Link>
+  );
+}
+
+type ProductCardProps = {
+  product: ReturnType<typeof listProducts>[number];
+};
+
+function ProductCard({ product }: ProductCardProps) {
+  return (
+    <article className="overflow-hidden rounded-lg border border-stone-200 bg-white shadow-sm">
+      <Link href={`/products/${product.slug}`} className="block">
+        <div
+          className="aspect-[4/3] bg-cover bg-center"
+          style={{ backgroundImage: `url(${product.image})` }}
+          aria-label={product.name}
+        />
+      </Link>
+      <div className="p-4">
+        <div className="mb-2 flex items-center justify-between gap-3 text-sm text-stone-600">
+          <span className="capitalize">{product.category}</span>
+          <span className="inline-flex items-center gap-1">
+            <Star aria-hidden="true" size={15} className="fill-amber-400 text-amber-400" />
+            {product.rating}
+          </span>
+        </div>
+        <h3 className="text-lg font-semibold">{product.name}</h3>
+        <p className="mt-2 line-clamp-2 min-h-12 text-sm leading-6 text-stone-600">{product.description}</p>
+        <div className="mt-4 flex items-center justify-between gap-3">
+          <span className="font-semibold">
+            {new Intl.NumberFormat("en-US", {
+              style: "currency",
+              currency: product.currency
+            }).format(product.price)}
+          </span>
+          <Link
+            href={`/products/${product.slug}`}
+            className="inline-flex items-center gap-1 rounded-md bg-stone-950 px-3 py-2 text-sm font-medium text-white hover:bg-stone-800"
+          >
+            View
+            <ArrowRight aria-hidden="true" size={15} />
+          </Link>
+        </div>
+      </div>
+    </article>
   );
 }
