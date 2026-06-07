@@ -41,8 +41,7 @@ export default function ShopPage() {
 				<div className="mx-auto max-w-7xl">
 					<div className="mb-5 flex items-center justify-between gap-4">
 						<div>
-							<h2 className="text-2xl font-semibold">Featured</h2>
-							<p className="mt-1 text-sm text-stone-600">A tighter edit of the strongest pieces in the catalog.</p>
+							<h2 className="text-2xl">Featured</h2>
 						</div>
 						<Link href="/api/products?featured=true" className="text-sm font-medium text-stone-600 hover:text-stone-950">
 							View JSON
@@ -56,31 +55,14 @@ export default function ShopPage() {
 				</div>
 			</section>
 
-			{/* <section id="all-products" className="border-t border-stone-200 bg-white px-5 py-12 sm:px-8 lg:px-12">
-				<div className="mx-auto max-w-7xl">
-					<div className="mb-5 flex items-center justify-between gap-4">
-						<div>
-							<h2 className="text-2xl font-semibold">All products</h2>
-							<p className="mt-1 text-sm text-stone-600">The full range, ready for deeper browsing and comparison.</p>
-						</div>
-						<div className="hidden items-center gap-2 text-sm text-stone-500 sm:flex">
-							<ShoppingCart aria-hidden="true" size={16} />
-							Basket-ready catalog
-						</div>
-					</div>
-					<div className="grid gap-0 sm:grid-cols-2 lg:grid-cols-4">
-						{products.map((product) => (
-							<ProductCard key={product.id} product={product} />
-						))}
-					</div>
-				</div>
-			</section> */}
-
-            <section id="catogories" className="px-5 py-10 sm:px-8 lg:px-12">
-                <div className="grid gap-0 sm:grid-cols-2 lg:grid-cols-3">
-                    {categories.map((category) => (
+            <section id="categories" className="px-5 py-10 sm:px-8 lg:px-12">
+                <div className="grid gap-0 grid-cols-2 md:grid-cols-3 lg:grid-cols-3">
+                    {categories.slice(0, -1).map((category) => (
                         <CategoryCard key={category.id} category={category} />
                     ))}
+					<div className="col-span-2 lg:col-span-1">
+						<CategoryCard key={categories[categories.length - 1].id} category={categories[categories.length - 1]} />
+					</div>
                 </div>
             </section>
 		</main>
@@ -109,8 +91,8 @@ type CategoryCardProps = {
 };
 
 function CategoryCard({ category }: CategoryCardProps) {
-    return (
-        <article className="overflow-hidden rounded-none bg-white shadow-none transition-shadow duration-300 hover:shadow-md">
+	return (
+		<article className="relative overflow-hidden rounded-none bg-white shadow-none transition-shadow duration-300 hover:shadow-md">
             <Link href={`/api/products?category=${category.id}`} className="block">
                 <div
                     className="aspect-[4/5] bg-cover bg-center"
@@ -118,18 +100,8 @@ function CategoryCard({ category }: CategoryCardProps) {
                     aria-label={category.name}
                 />
             </Link>
-            <div className="p-4">
-                <h3 className="text-lg font-semibold">{category.name}</h3>
-                <p className="mt-2 text-sm leading-6 text-stone-600">Discover our curated selection of {category.name.toLowerCase()} designed to elevate your style and functionality.</p>
-                <div className="mt-4 flex items-center justify-end gap-3">
-                    <Link
-                        href={`/api/products?category=${category.id}`}
-                        className="inline-flex items-center gap-1 rounded-md bg-stone-950 px-3 py-2 text-sm font-medium text-white hover:bg-stone-800"
-                    >
-                        View
-                        <ArrowRight aria-hidden="true" size={15} />
-                    </Link>
-                </div>
+			<div className="absolute bottom-0 left-0 p-4">
+                <h3 className="text-white text-lg">{category.name}</h3>
             </div>
         </article>
     );
