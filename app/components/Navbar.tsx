@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 
-export default function Navbar() {
+export default function Navbar({ startTransparent = true }: { startTransparent?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);
   const [isAccountOpen, setIsAccountOpen] = useState(false);
   const pathname = usePathname();
@@ -25,21 +25,21 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${isScrolled ? 'bg-white shadow-sm' : 'bg-transparent'}`}>
+    <nav className={`fixed top-0 left-0 w-full z-50 transition-colors duration-300 ${!startTransparent || isScrolled ? 'bg-white shadow-sm text-black' : 'bg-transparent text-white'}`}>
       <div className="grid grid-cols-[1fr_auto_1fr] items-center max-w-7xl mx-auto px-5 py-0">
         {/* Left: links on md+, menu button on small screens */}
         <div className="flex items-center">
           <div className="hidden md:flex items-center gap-6">
-            <Link href="/products" className={`text-sm font-medium ${pathname === '/products' ? 'text-blue-600' : `${isScrolled ? 'text-black' : 'text-white hover:text-stone-950'}`}`}>
+            <Link href="/shop" className={`text-sm font-medium`}>
               SHOP
             </Link>
-            <Link href="/about" className={`text-sm font-medium ${pathname === '/about' ? 'text-blue-600' : `${isScrolled ? 'text-black' : 'text-white hover:text-stone-950'}`}`}>
+            <Link href="/about" className={`text-sm font-medium`}>
               ABOUT US
             </Link>
           </div>
 
           <button
-            className={`md:hidden flex items-center gap-1 ${isScrolled ? 'text-black' : 'text-white hover:text-stone-950'} focus:outline-none`}
+            className={`md:hidden flex items-center gap-1 focus:outline-none`}
             onClick={() => setIsOpen(!isOpen)}
             aria-label="Toggle menu"
           >
@@ -50,13 +50,13 @@ export default function Navbar() {
 
           {isOpen && (
             <div className="absolute top-full left-0 w-full bg-white shadow-md md:hidden">
-              <Link href="/" className={`block px-4 py-2 text-sm font-medium ${pathname === '/' ? 'text-blue-600' : `${isScrolled ? 'text-black' : 'text-white hover:text-stone-950'}`}`}>
+              <Link href="/" className={`block px-4 py-2 text-sm font-medium`}>
                 HOME
               </Link>
-              <Link href="/products" className={`block px-4 py-2 text-sm font-medium ${pathname === '/products' ? 'text-blue-600' : `${isScrolled ? 'text-black' : 'text-white hover:text-stone-950'}`}`}>
+              <Link href="/shop" className={`block px-4 py-2 text-sm font-medium`}>
                 SHOP
               </Link>
-              <Link href="/about" className={`block px-4 py-2 text-sm font-medium ${pathname === '/about' ? 'text-blue-600' : `${isScrolled ? 'text-black' : 'text-white hover:text-stone-950'}`}`}>
+              <Link href="/about" className={`block px-4 py-2 text-sm font-medium`}>
                 ABOUT US
               </Link>
             </div>
@@ -65,7 +65,7 @@ export default function Navbar() {
 
         {/* Center: logo */}
         <Link href="/" className="flex justify-center">
-        {isScrolled ? (
+        {!startTransparent || isScrolled ? (
           <Image src="/logo_black.png" alt="Logo" width={75} height={75} loading="eager" />
         ) : (
           <Image src="/logo_white.png" alt="Logo" width={75} height={75} loading="eager" />
@@ -75,7 +75,7 @@ export default function Navbar() {
         {/* Right: account dropdown */}
         <div className="flex justify-end items-center relative">
           <button
-            className={`flex items-center gap-2 text-sm ${isScrolled ? 'text-black' : 'text-white hover:text-gray-500'} focus:outline-none`}
+            className={`flex items-center gap-2 text-sm focus:outline-none`}
             onClick={() => setIsAccountOpen(!isAccountOpen)}
             aria-label="Account"
           >

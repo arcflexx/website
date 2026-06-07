@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { listProducts, type Product } from "@/lib/products";
 
-const productCategories: Product["category"][] = ["bags", "apparel", "accessories"];
+const productCategories: Product["category"][] = ["accessories", "mens-clothing", "womens-clothing"];
 
 function parseCategory(category: string | null) {
   if (!category) {

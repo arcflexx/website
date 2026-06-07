@@ -1,9 +1,15 @@
+export type Category = {
+  id: string;
+  name: string;
+  image: string;
+}
+
 export type Product = {
   id: string;
   slug: string;
   name: string;
   description: string;
-  category: "bags" | "apparel" | "accessories";
+  category: Category["id"];
   price: number;
   currency: "USD";
   inventory: number;
@@ -23,13 +29,19 @@ export type ProductFilters = {
   search?: string;
 };
 
+export const categories: Category[] = [
+  { id: "mens-clothing", name: "Men", image: "https://images.unsplash.com/photo-1521334884684-d80222895322?auto=format&fit=crop&w=1200&q=80" },
+  { id: "womens-clothing", name: "Women", image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1200&q=80" },
+  { id: "accessories", name: "Accessories", image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1200&q=80" },
+];
+
 export const products: Product[] = [
   {
     id: "prod_001",
     slug: "aero-daypack",
     name: "Aero Daypack",
     description: "A structured 22L pack with padded laptop storage and quick-access commuter pockets.",
-    category: "bags",
+    category: "accessories",
     price: 128,
     currency: "USD",
     inventory: 24,
@@ -47,7 +59,7 @@ export const products: Product[] = [
     slug: "thermal-overshirt",
     name: "Thermal Overshirt",
     description: "Midweight organic cotton overshirt cut for layering through changing weather.",
-    category: "apparel",
+    category: "mens-clothing",
     price: 94,
     currency: "USD",
     inventory: 37,
@@ -82,7 +94,7 @@ export const products: Product[] = [
     slug: "weekend-tote",
     name: "Weekend Tote",
     description: "A durable canvas tote with internal bottle sleeves and reinforced carry handles.",
-    category: "bags",
+    category: "accessories",
     price: 76,
     currency: "USD",
     inventory: 18,
@@ -124,5 +136,5 @@ export function getProduct(identifier: string) {
 }
 
 export function getCategories() {
-  return Array.from(new Set(products.map((product) => product.category)));
+  return categories;
 }

@@ -33,7 +33,7 @@ export default function Home() {
           </div>
         </nav>
       </header> */}
-      <Navbar />
+      <Navbar startTransparent={true} />
       <Hero videoURL="" />
 
       <section className="px-5 py-10 sm:px-8 lg:px-12">
@@ -56,49 +56,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* <section className="px-5 pb-6 sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-4 flex flex-wrap gap-2">
-            {categories.map((category) => (
-              <Link
-                key={category}
-                href={`/api/products?category=${category}`}
-                className="rounded-md border border-stone-300 bg-white px-3 py-2 text-sm font-medium capitalize text-stone-700 hover:border-stone-500"
-              >
-                {category}
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="px-5 pb-14 sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-5 flex items-center justify-between gap-4">
-            <h2 className="text-2xl font-semibold">Featured</h2>
-            <Link href="/api/products?featured=true" className="text-sm font-medium text-stone-600 hover:text-stone-950">
-              View JSON
-            </Link>
-          </div>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {featuredProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      <section className="border-t border-stone-200 bg-white px-5 py-12 sm:px-8 lg:px-12">
-        <div className="mx-auto max-w-7xl">
-          <h2 className="mb-5 text-2xl font-semibold">All products</h2>
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-            {products.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
-          </div>
-        </div>
-      </section> */}
     </main>
   );
 }
