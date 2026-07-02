@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import localFont from 'next/font/local';
+import { CartWrapper } from "./providers/CartProvider";
+import { ShopifyWrapper } from "./providers/ShopifyProvider";
 
 export const texheros = localFont({
-  src: '../public/fonts/font.otf',
+  src: '../public/fonts/texheros.otf',
   variable: '--font-texheros',
+});
+
+export const inter = localFont({
+  src: '../public/fonts/inter-variable.ttf',
+  variable: '--font-inter',
 });
 
 export const metadata: Metadata = {
@@ -17,9 +24,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
+
   return (
     <html lang="en">
-      <body className={texheros.variable}>{children}</body>
+      <body className={`${inter.variable}`}>
+        <ShopifyWrapper>
+          <CartWrapper>
+            {children}
+          </CartWrapper>
+        </ShopifyWrapper>
+      </body>
     </html>
   );
 }

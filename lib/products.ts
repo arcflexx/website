@@ -30,9 +30,9 @@ export type ProductFilters = {
 };
 
 export const categories: Category[] = [
-  { id: "mens-clothing", name: "MEN", image: "https://images.unsplash.com/photo-1521334884684-d80222895322?auto=format&fit=crop&w=1200&q=80" },
-  { id: "womens-clothing", name: "WOMEN", image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1200&q=80" },
-  { id: "accessories", name: "ACCESSORIES", image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1200&q=80" },
+  { id: "mens-clothing", name: "Men", image: "https://images.unsplash.com/photo-1521334884684-d80222895322?auto=format&fit=crop&w=1200&q=80" },
+  { id: "womens-clothing", name: "Women", image: "https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=1200&q=80" },
+  { id: "accessories", name: "Accessories", image: "https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1200&q=80" },
 ];
 
 export const products: Product[] = [
