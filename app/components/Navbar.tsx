@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import CartButton from './CartButton';
 
 export default function Navbar({ startTransparent = true }: { startTransparent?: boolean }) {
   const [isOpen, setIsOpen] = useState(false);

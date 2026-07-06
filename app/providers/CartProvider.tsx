@@ -15,6 +15,12 @@ export function CartWrapper({ children }: { children: React.ReactNode }) {
         onLineAddComplete={() => {
             console.log('a line has been added');
         }}
+        onLineRemove={() => {
+            console.log('a line is being removed');
+        }}
+        onLineRemoveComplete={() => {
+            console.log('a line has been removed');
+        }}
     >
       {children}
     </CartProvider>

@@ -1,6 +1,6 @@
 'use client';
 
-import { CartProvider, useCart } from "@shopify/hydrogen-react";
+import { useCart } from "@shopify/hydrogen-react";
 import { CartLineInput } from "@shopify/hydrogen-react/storefront-api-types";
 
 export default function Cart() {
@@ -10,7 +10,7 @@ export default function Cart() {
 }
 
 function CartComponent() {
-  const {linesAdd, status} = useCart();
+  const {linesRemove, linesAdd, status} = useCart();
 
   const merchandise: CartLineInput = {merchandiseId: 'gid://shopify/ProductVariant/48364361974001'};
 
@@ -18,6 +18,7 @@ function CartComponent() {
     <div>
       Cart Status: {status}
       <button onClick={() => linesAdd([merchandise])}>Add Line</button>
+      <button onClick={() => linesRemove([merchandise.merchandiseId])}>Remove Line</button>
     </div>
   );
 }

@@ -1,13 +1,13 @@
 import { client } from './client';
+import { Product } from '@shopify/hydrogen-react/storefront-api-types';
 
-export async function runQuery(query: string, variables?: Record<string, unknown>) {
+export async function runQuery(query: string) {
     const response = await fetch(client.getStorefrontApiUrl(), {
         body: JSON.stringify({
         query: query,
-        variables: variables || {},
         }),
         // Generate the headers using the private token.
-        headers: client.getPrivateTokenHeaders(),
+        headers: client.getPublicTokenHeaders(),
         method: 'POST',
     });
 
@@ -20,4 +20,3 @@ export async function runQuery(query: string, variables?: Record<string, unknown
 
     return {props: json};
 }
-

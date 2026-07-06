@@ -15,37 +15,14 @@ function parseCategory(category: string | null) {
 }
 
 export async function GET(request: NextRequest) {
-  // const { searchParams } = request.nextUrl;
-  // const category = parseCategory(searchParams.get("category"));
-
-  // if (category === null) {
-  //   return NextResponse.json(
-  //     {
-  //       error: "Invalid category",
-  //       allowedCategories: productCategories
-  //     },
-  //     { status: 400 }
-  //   );
-  // }
-
-  // const featuredParam = searchParams.get("featured");
-  // const featured = featuredParam === null ? undefined : featuredParam === "true";
-  // const products = listProducts({
-  //   category,
-  //   featured,
-  //   search: searchParams.get("q") ?? undefined
-  // });
-
-  // return NextResponse.json({
-  //   data: products,
-  //   meta: {
-  //     count: products.length
-  //   }
-  // });
+  
+  const { searchParams } = request.nextUrl;
+  const category = parseCategory(searchParams.get("category"));
+  const page = parseInt(searchParams.get("page") || "1", 10);
 
   const GRAPHQL_QUERY = `
     query {
-      products(first: 10) {
+      products(after: ${page * 10}, first: 10, query: "${category ? `category:${category}` : ""}") {
         edges {
           node {
             id

@@ -1,1 +1,91 @@
-{"data":{"props":{"data":{"products":{"edges":[{"node":{"id":"gid://shopify/Product/9652815397105","title":"Compression","description":"Compression","images":{"edges":[{"node":{"src":"https://cdn.shopify.com/s/files/1/0804/4127/8705/files/IMG_1157.jpg?v=1782832571","altText":null}},{"node":{"src":"https://cdn.shopify.com/s/files/1/0804/4127/8705/files/IMG_1156.png?v=1782832571","altText":null}}]},"variants":{"edges":[{"node":{"id":"gid://shopify/ProductVariant/48364361974001","title":"Default Title","priceV2":{"amount":"54.0","currencyCode":"USD"}}}]}}},{"node":{"id":"gid://shopify/Product/9652815823089","title":"Compression Black","description":"Compression Black","images":{"edges":[{"node":{"src":"https://cdn.shopify.com/s/files/1/0804/4127/8705/files/IMG_1159.jpg?v=1782832759","altText":null}},{"node":{"src":"https://cdn.shopify.com/s/files/1/0804/4127/8705/files/IMG_1158.png?v=1782832759","altText":null}}]},"variants":{"edges":[{"node":{"id":"gid://shopify/ProductVariant/48364362924273","title":"Black","priceV2":{"amount":"54.0","currencyCode":"USD"}}}]}}}]}},"extensions":{"cost":{"requestedQueryCost":77}}}}}
+{
+    "data": {
+        "props": {
+            "data": {
+                "products": {
+                    "edges": [
+                        {
+                            "node": {
+                                "id": "gid://shopify/Product/9652815397105",
+                                "title": "Compression",
+                                "description": "Compression",
+                                "images": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "src": "https://cdn.shopify.com/s/files/1/0804/4127/8705/files/IMG_1157.jpg?v=1782832571",
+                                                "altText": null
+                                            }
+                                        },
+                                        {
+                                            "node": {
+                                                "src": "https://cdn.shopify.com/s/files/1/0804/4127/8705/files/IMG_1156.png?v=1782832571",
+                                                "altText": null
+                                            }
+                                        }
+                                    ]
+                                },
+                                "variants": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "id": "gid://shopify/ProductVariant/48364361974001",
+                                                "title": "Default Title",
+                                                "priceV2": {
+                                                    "amount": "54.0",
+                                                    "currencyCode": "USD"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        },
+                        {
+                            "node": {
+                                "id": "gid://shopify/Product/9652815823089",
+                                "title": "Compression Black",
+                                "description": "Compression Black",
+                                "images": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "src": "https://cdn.shopify.com/s/files/1/0804/4127/8705/files/IMG_1159.jpg?v=1782832759",
+                                                "altText": null
+                                            }
+                                        },
+                                        {
+                                            "node": {
+                                                "src": "https://cdn.shopify.com/s/files/1/0804/4127/8705/files/IMG_1158.png?v=1782832759",
+                                                "altText": null
+                                            }
+                                        }
+                                    ]
+                                },
+                                "variants": {
+                                    "edges": [
+                                        {
+                                            "node": {
+                                                "id": "gid://shopify/ProductVariant/48364362924273",
+                                                "title": "Black",
+                                                "priceV2": {
+                                                    "amount": "54.0",
+                                                    "currencyCode": "USD"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    ]
+                }
+            },
+            "extensions": {
+                "cost": {
+                    "requestedQueryCost": 77
+                }
+            }
+        }
+    }
+}
