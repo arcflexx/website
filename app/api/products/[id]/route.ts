@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { getProduct } from "@/lib/products";
-import { runQuery, resolveQuery } from "@/lib/shopify/query";
+import { runQuery } from "@/lib/shopify/query";
 
 type RouteContext = {
   params: Promise<{
@@ -40,8 +40,8 @@ const GRAPHQL_QUERY = `
 
 export async function GET(_request: Request, context: RouteContext) {
   const { id } = await context.params;
-  const product = await runQuery(resolveQuery(GRAPHQL_QUERY, { id })).then((response) => response.props.data.product);
-
+  const product = await runQuery(GRAPHQL_QUERY).then((response) => response.props.data.product);
+  
   if (!product) {
     return NextResponse.json({ error: "Product not found" }, { status: 404 });
   }
