@@ -7,7 +7,6 @@ import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import Cart from "../components/FullCart";
 import { useEffect, useState } from "react";
-import { toProduct } from "@/lib/shopify/query";
 
 export default function ShopPage() {
 	const [data, setData] = useState(null);
