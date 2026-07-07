@@ -1,4 +1,4 @@
-export function encodeSlash(value: string): string {
-	return value.replace(/\//g, "%2F");
+export function encodeSlash(value: string | null | undefined): string {
+	return String(value ?? "").replace(/\//g, "%2F");
 }
 
