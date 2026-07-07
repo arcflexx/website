@@ -7,14 +7,12 @@ const ShopifyContext = createContext<string | null>(null);
 
 export function ShopifyWrapper({ children }: { children: React.ReactNode }) {
 
-    const storeDomain = process.env.NEXT_PUBLIC_STORE_DOMAIN;
+    const storeDomain = process.env.NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN;
     const storefrontToken = process.env.NEXT_PUBLIC_STOREFRONT_API_TOKEN;
     const storefrontApiVersion = "2026-04";
     const countryIsoCode = "US";
     const languageIsoCode = "EN";
-
-    console.log("Store Domain:", storeDomain);
-
+    
     if (!storeDomain) {
         throw new Error("Missing NEXT_PUBLIC_SHOPIFY_STORE_DOMAIN");
     }

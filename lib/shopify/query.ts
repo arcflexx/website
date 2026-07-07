@@ -1,13 +1,16 @@
-import { client } from './client';
-import { Product } from '@shopify/hydrogen-react/storefront-api-types';
+import { OVERRIDE_STOREFRONT_API_URL, OVERRIDE_REQUEST_HEADERS } from './client';
 
-export async function runQuery(query: string) {
-    const response = await fetch(client.getStorefrontApiUrl(), {
-        body: JSON.stringify({
-        query: query,
-        }),
-        // Generate the headers using the private token.
-        headers: client.getPublicTokenHeaders(),
+type GraphQLResponse<TData> = {
+    data?: TData;
+    errors?: Array<{ message: string }>;
+};
+
+export async function runQuery<TData = unknown>(query: string, variables?: Record<string, unknown>): Promise<TData> {
+    const response = await fetch(OVERRIDE_STOREFRONT_API_URL, { // client.getStorefrontApiUrl()
+        body: JSON.stringify({ query: query, variables: variables }),
+        headers: {
+            ...OVERRIDE_REQUEST_HEADERS,
+        },
         method: 'POST',
     });
 
@@ -18,5 +21,9 @@ export async function runQuery(query: string) {
 
     const json = await response.json();
 
-    return {props: json};
+    if (json.errors?.length) {
+        throw new Error(json.errors[0].message);
+    }
+
+    return json.data as TData;
 }

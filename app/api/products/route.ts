@@ -1,47 +1,33 @@
 import { NextRequest, NextResponse } from "next/server";
-import { listProducts, type Product } from "@/lib/products";
 import { runQuery } from "@/lib/shopify/query";
-
-const productCategories: Product["category"][] = ["accessories", "mens-clothing", "womens-clothing"];
-
-function parseCategory(category: string | null) {
-  if (!category) {
-    return undefined;
-  }
-
-  return productCategories.includes(category as Product["category"])
-    ? (category as Product["category"])
-    : null;
-}
 
 export async function GET(request: NextRequest) {
   
   const { searchParams } = request.nextUrl;
-  const category = parseCategory(searchParams.get("category"));
-  const page = parseInt(searchParams.get("page") || "1", 10);
+  const first = searchParams.get("first") || "10";
+  const after = searchParams.get("after") || null;
 
   const GRAPHQL_QUERY = `
     query {
-      products(after: ${page * 10}, first: 10, query: "${category ? `category:${category}` : ""}") {
+      products(first: ${first}, ${after ? `after: "${after}"` : ""}) {
         edges {
           node {
             id
             title
-            description
-            images(first: 5) {
-              edges {
-                node {
-                  src
-                  altText
-                }
-              }
+            featuredImage {
+              id
+              url
+              altText
+              width
+              height
             }
-            variants(first: 5) {
+            variants(first: 1) {
               edges {
                 node {
                   id
                   title
-                  priceV2 {
+                  availableForSale
+                  price {
                     amount
                     currencyCode
                   }
@@ -49,6 +35,12 @@ export async function GET(request: NextRequest) {
               }
             }
           }
+        }
+        pageInfo {
+          hasPreviousPage
+          hasNextPage
+          startCursor
+          endCursor
         }
       }
     }

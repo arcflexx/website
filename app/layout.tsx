@@ -28,7 +28,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${inter.variable}`}>
+      <body className={`${texheros.variable}`}>
         <ShopifyWrapper>
           <CartWrapper>
             {children}
