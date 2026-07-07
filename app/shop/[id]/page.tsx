@@ -147,14 +147,7 @@ export default function ProductPage() {
 								<span className={`h-2.5 w-2.5 rounded-full ${product.availableForSale ? "bg-emerald-500" : "bg-stone-400"}`} />
 								<span>{product.availableForSale ? "Item Available" : "Currently unavailable"}</span>
 							</div>
-
-							{product.description ? (
-								<p className="mt-6 max-w-xl text-base leading-7 text-stone-600 sm:text-lg">
-									{product.description}
-								</p>
-							) : null}
-
-							{product.tags.length > 0 ? (
+                            {product.tags.length > 0 ? (
 								<div className="mt-8">
 									<p className="text-xs uppercase tracking-[0.2em] text-stone-400">Tags</p>
 									<div className="mt-3 flex flex-wrap gap-2">
@@ -165,6 +158,12 @@ export default function ProductPage() {
 										))}
 									</div>
 								</div>
+							) : null}
+
+							{product.description ? (
+								<p className="mt-6 max-w-xl text-base leading-7 text-stone-600 sm:text-lg">
+									{product.description}
+								</p>
 							) : null}
 
 							{product.options.length > 0 ? (
