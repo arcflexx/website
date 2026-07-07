@@ -1,6 +1,5 @@
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
-import { CategoryCard } from "./components/CategoryCard";
 
 export default function Home() {
   // const products = listProducts();
