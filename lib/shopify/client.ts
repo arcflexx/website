@@ -1,9 +1,10 @@
 import {createStorefrontClient} from '@shopify/hydrogen-react';
 
-export const OVERRIDE_STOREFRONT_API_URL = "https://uujwhv-c7.myshopify.com/api/2026-04/graphql.json";
+export const OVERRIDE_STOREFRONT_API_URL = "https://uujwhv-c7.myshopify.com/api/2026-04/graphql.json/";
 export const OVERRIDE_REQUEST_HEADERS = {
   "Content-Type": "application/json",
   "Accept": "application/json",
+  'Access-Control-Allow-Origin': 'https://arcflexfit.com',
   "X-Shopify-Storefront-Access-Token": process.env.NEXT_PUBLIC_STOREFRONT_API_TOKEN || "",
 }
 
